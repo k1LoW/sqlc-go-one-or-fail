@@ -55,4 +55,8 @@ prerelease_for_tagpr:
 	gocredits -w .
 	git add CHANGELOG.md CREDITS go.mod go.sum
 
+release:
+	git push origin main --tag
+	goreleaser --clean
+
 .PHONY: default test
