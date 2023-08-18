@@ -31,7 +31,7 @@ func run() error {
 		return err
 	}
 	defer db.Close()
-	b, err := os.ReadFile("schema.sql")
+	b, err := os.ReadFile(filepath.Join("..", "schema.sql"))
 	if err != nil {
 		return err
 	}

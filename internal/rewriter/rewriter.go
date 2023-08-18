@@ -37,7 +37,8 @@ func Rewrite(ctx context.Context, p string) error {
 				// Rewrite
 				qa := getArgs(x.Body.List[0].(*ast.AssignStmt).Rhs[0].(*ast.CallExpr))
 				sa := getArgs(x.Body.List[2].(*ast.AssignStmt).Rhs[0].(*ast.CallExpr))
-				x.Body.List = generateStmts(x.Type.Params, x.Type.Results, qa, sa)
+				vardef := x.Body.List[1]
+				x.Body.List = generateStmts(x.Type.Params, x.Type.Results, vardef, qa, sa)
 				rewrited = true
 				return true
 			}
@@ -130,9 +131,10 @@ func hasScanOne(n ast.Node) bool {
 	return cnt == 1
 }
 
-func generateStmts(params, results *ast.FieldList, qa, sa []ast.Expr) []ast.Stmt {
+func generateStmts(params, results *ast.FieldList, vardef ast.Stmt, qa, sa []ast.Expr) []ast.Stmt {
 	var zerov, resv, qv string
 	var first ast.Expr
+	varname := vardef.(*ast.DeclStmt).Decl.(*ast.GenDecl).Specs[0].(*ast.ValueSpec).Names[0].Name
 	t, ok := results.List[0].Type.(*ast.Ident)
 	if ok {
 		switch t.Name {
@@ -145,7 +147,7 @@ func generateStmts(params, results *ast.FieldList, qa, sa []ast.Expr) []ast.Stmt
 		}
 		resv = t.Name
 		first = &ast.Ident{
-			Name: "i",
+			Name: varname,
 		}
 	} else {
 		// emit_result_struct_pointers = true
@@ -154,7 +156,7 @@ func generateStmts(params, results *ast.FieldList, qa, sa []ast.Expr) []ast.Stmt
 		first = &ast.UnaryExpr{
 			Op: token.AND,
 			X: &ast.Ident{
-				Name: "i",
+				Name: varname,
 			},
 		}
 	}
@@ -331,7 +333,7 @@ func generateStmts(params, results *ast.FieldList, qa, sa []ast.Expr) []ast.Stmt
 					&ast.ValueSpec{
 						Names: []*ast.Ident{
 							&ast.Ident{
-								Name: "i",
+								Name: varname,
 							},
 						},
 						Type: &ast.Ident{

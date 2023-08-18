@@ -2,6 +2,14 @@
 SELECT * FROM authors
 WHERE id = ?;
 
+-- name: GetAuthorName :one
+SELECT name FROM authors
+WHERE id = ?;
+
+-- name: GetAuthorNameAndBio :one
+SELECT name, bio FROM authors
+WHERE id = ?;
+
 -- name: GetAuthorByName :one
 SELECT * FROM authors
 WHERE name = ?;
