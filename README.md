@@ -68,23 +68,23 @@ func (q *Queries) GetAuthorByName(ctx context.Context, name string) (Author, err
 **deb:**
 
 ``` console
-$ export SQLC_GO_ONE_OE_FAIL_VERSION=X.X.X
-$ curl -o sqlc-go-one-or-fail.deb -L https://github.com/k1LoW/sqlc-go-one-or-fail/releases/download/v$SQLC_GO_ONE_OE_FAIL_VERSION/sqlc-go-one-or-fail_$SQLC_GO_ONE_OE_FAIL_VERSION-1_amd64.deb
+$ export SQLC_GO_ONE_OR_FAIL_VERSION=X.X.X
+$ curl -o sqlc-go-one-or-fail.deb -L https://github.com/k1LoW/sqlc-go-one-or-fail/releases/download/v$SQLC_GO_ONE_OR_FAIL_VERSION/sqlc-go-one-or-fail_$SQLC_GO_ONE_OR_FAIL_VERSION-1_amd64.deb
 $ dpkg -i sqlc-go-one-or-fail.deb
 ```
 
 **RPM:**
 
 ``` console
-$ export SQLC_GO_ONE_OE_FAIL_VERSION=X.X.X
-$ yum install https://github.com/k1LoW/sqlc-go-one-or-fail/releases/download/v$SQLC_GO_ONE_OE_FAIL_VERSION/sqlc-go-one-or-fail_$SQLC_GO_ONE_OE_FAIL_VERSION-1_amd64.rpm
+$ export SQLC_GO_ONE_OR_FAIL_VERSION=X.X.X
+$ yum install https://github.com/k1LoW/sqlc-go-one-or-fail/releases/download/v$SQLC_GO_ONE_OR_FAIL_VERSION/sqlc-go-one-or-fail_$SQLC_GO_ONE_OR_FAIL_VERSION-1_amd64.rpm
 ```
 
 **apk:**
 
 ``` console
-$ export SQLC_GO_ONE_OE_FAIL_VERSION=X.X.X
-$ curl -o sqlc-go-one-or-fail.apk -L https://github.com/k1LoW/sqlc-go-one-or-fail/releases/download/v$SQLC_GO_ONE_OE_FAIL_VERSION/runn_$SQLC_GO_ONE_OE_FAIL_VERSION-1_amd64.apk
+$ export SQLC_GO_ONE_OR_FAIL_VERSION=X.X.X
+$ curl -o sqlc-go-one-or-fail.apk -L https://github.com/k1LoW/sqlc-go-one-or-fail/releases/download/v$SQLC_GO_ONE_OR_FAIL_VERSION/runn_$SQLC_GO_ONE_OR_FAIL_VERSION-1_amd64.apk
 $ apk add sqlc-go-one-or-fail.apk
 ```
 
