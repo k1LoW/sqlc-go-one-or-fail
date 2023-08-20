@@ -25,7 +25,7 @@ lint:
 	golangci-lint run ./...
 	govulncheck ./...
 
-test:
+test: update-testdata
 	go test ./... -coverprofile=coverage.out -covermode=count
 
 test-integration:
@@ -44,6 +44,17 @@ test-integration:
 	cd internal/rewriter/testdata/emit_result_struct_pointers && go run main.go
 	go run main.go internal/rewriter/testdata/emit_result_struct_pointers/gen
 	(cd internal/rewriter/testdata/emit_result_struct_pointers && go run main.go) || if [ $$? -ne 1 ]; then echo "should be failed with status 1" && exit 1 ; fi;
+
+update-testdata:
+	rm -rf internal/rewriter/testdata/default/gen
+	cd internal/rewriter/testdata/default && sqlc generate
+	cp internal/rewriter/testdata/default/gen/query.sql.go internal/rewriter/testdata/default.query.sql.go
+	rm -rf internal/rewriter/testdata/emit_methods_with_db_argument/gen
+	cd internal/rewriter/testdata/emit_methods_with_db_argument && sqlc generate
+	cp internal/rewriter/testdata/emit_methods_with_db_argument/gen/query.sql.go internal/rewriter/testdata/emit_methods_with_db_argument.query.sql.go
+	rm -rf internal/rewriter/testdata/emit_result_struct_pointers/gen
+	cd internal/rewriter/testdata/emit_result_struct_pointers && sqlc generate
+	cp internal/rewriter/testdata/emit_result_struct_pointers/gen/query.sql.go internal/rewriter/testdata/emit_result_struct_pointers.query.sql.go
 
 depsdev:
 	go install github.com/Songmu/ghch/cmd/ghch@latest
