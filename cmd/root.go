@@ -22,6 +22,7 @@ THE SOFTWARE.
 package cmd
 
 import (
+	"bytes"
 	"context"
 	"os"
 	"path/filepath"
@@ -54,7 +55,15 @@ var rootCmd = &cobra.Command{
 			if !strings.HasSuffix(d.Name(), ".go") {
 				return nil
 			}
-			return rewriter.Rewrite(ctx, filepath.Join(base, path))
+			p := filepath.Join(base, path)
+			buf := new(bytes.Buffer)
+			if err := rewriter.Rewrite(ctx, p, buf); err != nil {
+				return err
+			}
+			if err := os.WriteFile(p, buf.Bytes(), 0644); err != nil {
+				return err
+			}
+			return nil
 		}); err != nil {
 			return err
 		}
