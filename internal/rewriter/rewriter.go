@@ -7,12 +7,12 @@ import (
 	"go/format"
 	"go/parser"
 	"go/token"
-	"os"
+	"io"
 
 	"golang.org/x/tools/go/ast/astutil"
 )
 
-func Rewrite(ctx context.Context, p string) error {
+func Rewrite(ctx context.Context, p string, w io.Writer) error {
 	fset := token.NewFileSet()
 	n, err := parser.ParseFile(fset, p, nil, parser.ParseComments|parser.AllErrors)
 	if err != nil {
@@ -49,13 +49,7 @@ func Rewrite(ctx context.Context, p string) error {
 		appendPackage(n, "database/sql")
 		appendPackage(n, "fmt")
 	}
-
-	f, err := os.Create(p)
-	if err != nil {
-		return err
-	}
-	defer f.Close()
-	if err := format.Node(f, fset, n); err != nil {
+	if err := format.Node(w, fset, n); err != nil {
 		return err
 	}
 	return nil
