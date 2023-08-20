@@ -5,6 +5,7 @@ codeToTestRatio:
   code:
     - '**/*.go'
     - '!**/*_test.go'
+    - '!internal/rewriter/testdata/**/*.go'
   test:
     - '**/*_test.go'
 testExecutionTime:
