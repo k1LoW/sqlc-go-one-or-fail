@@ -1,5 +1,7 @@
 # Changelog
 
+## [v0.2.1](https://github.com/k1LoW/sqlc-go-one-or-fail/compare/v0.2.0...v0.2.1) - 2023-08-20
+
 ## [v0.2.0](https://github.com/k1LoW/sqlc-go-one-or-fail/compare/v0.1.0...v0.2.0) - 2023-08-20
 ### Breaking Changes 🛠
 - Change the signature of rewriter.Rewrite and add test. by @k1LoW in https://github.com/k1LoW/sqlc-go-one-or-fail/pull/6
