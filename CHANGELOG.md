@@ -1,5 +1,9 @@
 # Changelog
 
+## [v0.3.1](https://github.com/k1LoW/sqlc-go-one-or-fail/compare/v0.3.0...v0.3.1) - 2024-07-04
+### Fix bug 🐛
+- Fix release pipeline by @k1LoW in https://github.com/k1LoW/sqlc-go-one-or-fail/pull/10
+
 ## [v0.3.0](https://github.com/k1LoW/sqlc-go-one-or-fail/compare/v0.2.0...v0.3.0) - 2024-07-04
 ### Fix bug 🐛
 - Support for methods that return only `sql.Null*` types. by @k1LoW in https://github.com/k1LoW/sqlc-go-one-or-fail/pull/8
