@@ -1,5 +1,11 @@
 # Changelog
 
+## [v0.3.0](https://github.com/k1LoW/sqlc-go-one-or-fail/compare/v0.2.0...v0.3.0) - 2024-07-04
+### Fix bug 🐛
+- Support for methods that return only `sql.Null*` types. by @k1LoW in https://github.com/k1LoW/sqlc-go-one-or-fail/pull/8
+### Other Changes
+- Check oldstable by @k1LoW in https://github.com/k1LoW/sqlc-go-one-or-fail/pull/9
+
 ## [v0.2.0](https://github.com/k1LoW/sqlc-go-one-or-fail/compare/v0.1.0...v0.2.0) - 2023-08-20
 ### Breaking Changes 🛠
 - Change the signature of rewriter.Rewrite and add test. by @k1LoW in https://github.com/k1LoW/sqlc-go-one-or-fail/pull/6
