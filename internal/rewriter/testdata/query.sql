@@ -10,6 +10,10 @@ WHERE id = ?;
 SELECT name, bio FROM authors
 WHERE id = ?;
 
+-- name: GetAuthorBio :one
+SELECT bio FROM authors
+WHERE id = ?;
+
 -- name: GetAuthorByName :one
 SELECT * FROM authors
 WHERE name = ?;

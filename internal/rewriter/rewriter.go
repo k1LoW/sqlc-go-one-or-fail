@@ -145,13 +145,23 @@ func generateStmts(params, results *ast.FieldList, vardef ast.Stmt, qa, sa []ast
 		}
 	} else {
 		// emit_result_struct_pointers = true
-		zerov = "nil"
-		resv = results.List[0].Type.(*ast.StarExpr).X.(*ast.Ident).Name
-		first = &ast.UnaryExpr{
-			Op: token.AND,
-			X: &ast.Ident{
+		switch e := results.List[0].Type.(type) {
+		case *ast.StarExpr:
+			zerov = "nil"
+			resv = e.X.(*ast.Ident).Name
+			first = &ast.UnaryExpr{
+				Op: token.AND,
+				X: &ast.Ident{
+					Name: varname,
+				},
+			}
+		case *ast.SelectorExpr:
+			// return sql.*, nil
+			zerov = varname
+			resv = fmt.Sprintf("%s.%s", e.X.(*ast.Ident).Name, e.Sel.Name)
+			first = &ast.Ident{
 				Name: varname,
-			},
+			}
 		}
 	}
 	// Get query variable name
@@ -182,6 +192,23 @@ func generateStmts(params, results *ast.FieldList, vardef ast.Stmt, qa, sa []ast
 	}
 
 	stmts := []ast.Stmt{
+		&ast.DeclStmt{
+			Decl: &ast.GenDecl{
+				Tok: token.VAR,
+				Specs: []ast.Spec{
+					&ast.ValueSpec{
+						Names: []*ast.Ident{
+							&ast.Ident{
+								Name: varname,
+							},
+						},
+						Type: &ast.Ident{
+							Name: resv,
+						},
+					},
+				},
+			},
+		},
 		&ast.AssignStmt{
 			Lhs: []ast.Expr{
 				&ast.Ident{
@@ -315,23 +342,6 @@ func generateStmts(params, results *ast.FieldList, vardef ast.Stmt, qa, sa []ast
 									Name: "ErrNoRows",
 								},
 							},
-						},
-					},
-				},
-			},
-		},
-		&ast.DeclStmt{
-			Decl: &ast.GenDecl{
-				Tok: token.VAR,
-				Specs: []ast.Spec{
-					&ast.ValueSpec{
-						Names: []*ast.Ident{
-							&ast.Ident{
-								Name: varname,
-							},
-						},
-						Type: &ast.Ident{
-							Name: resv,
 						},
 					},
 				},
